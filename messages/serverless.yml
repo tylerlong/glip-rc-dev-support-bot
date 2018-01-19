@@ -7,6 +7,11 @@ provider:
   memorySize: 128
   timeout: 16
   environment: ${file(./env.yml):${self:provider.stage}}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "lex:*"
+      Resource: "arn:aws:lex:us-east-1:000469308104:bot:OrderFlowers:order_rose"
 package:
   exclude:
     - '*.js'

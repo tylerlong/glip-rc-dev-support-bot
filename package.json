@@ -15,9 +15,11 @@
     "remove": "cd messages && serverless remove",
     "deploy:full": "yarn build && cd messages && serverless deploy",
     "deploy:full:prod": "yarn release && cd messages && serverless deploy --stage prod",
-    "deploy": "yarn deploy:full function -f handleMessage"
+    "deploy": "yarn deploy:full function -f handleMessage",
+    "test": "node -r babel-register test/index.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.184.0",
     "ringcentral-js-concise": "^0.2.0"
   },
   "devDependencies": {
