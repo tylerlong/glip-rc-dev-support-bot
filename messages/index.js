@@ -18,40 +18,45 @@ export const handleMessage = (event, context, callback) => {
   if (event.body === null) {
     return
   }
+  const message = JSON.parse(event.body).body
+  console.log(message.text)
+  if (message.creatorId === token.owner_id) {
+    return
+  }
   lambda.invoke({
     FunctionName: 'glip-rc-dev-support-bot-messages-dev-processMessage',
-    InvocationType: 'Event',
-    Payload: JSON.stringify(event)
+    InvocationType: 'Event', // so `lambda.invoke` is async
+    Payload: JSON.stringify({ message })
   }, (error, data) => {
-    console.log(error, data)
+    if (error != null) {
+      console.log(error, data)
+    }
   })
 }
 
 export const processMessage = (event, context, callback) => {
-  const body = JSON.parse(event.body)
-  console.log(JSON.stringify(body, null, 2))
-  const message = body.body
-  if (message && message.creatorId !== token.owner_id) {
-    lex.postText({
-      botAlias: 'order_rose', /* required */
-      botName: 'OrderFlowers', /* required */
-      inputText: message.text, /* required */
-      userId: message.creatorId /* required */
-    }, (error, data) => {
+  const message = event.message
+  console.log(message.text)
+  lex.postText({
+    botAlias: 'order_rose', /* required */
+    botName: 'OrderFlowers', /* required */
+    inputText: message.text, /* required */
+    userId: message.creatorId /* required */
+  }, (error, data) => {
+    if (error !== null) {
       console.log(error, data)
-      if (error !== null) {
-        return
-      }
-      if (data.message === null && data.dialogState === 'ReadyForFulfillment') {
-        data.message = 'OK'
-      }
-      rc.post('/restapi/v1.0/glip/posts', {
-        groupId: message.groupId,
-        text: data.message,
-        attachments: undefined
-      }).catch(error => {
-        console.log(error.response.data)
-      })
+      return
+    }
+    if (data.message === null && data.dialogState === 'ReadyForFulfillment') {
+      data.message = 'OK'
+    }
+    console.log(data.message)
+    rc.post('/restapi/v1.0/glip/posts', {
+      groupId: message.groupId,
+      text: data.message,
+      attachments: undefined
+    }).catch(error => {
+      console.log(error.response.data)
     })
-  }
+  })
 }
