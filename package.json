@@ -10,12 +10,12 @@
     "build:watch": "yarn build --watch",
     "release": "yarn build -p",
     "info": "cd messages && serverless info",
-    "log": "cd messages && serverless -f handleMessage logs",
+    "log": "cd messages && serverless -f processMessage logs",
     "log:stream": "yarn log -t",
     "remove": "cd messages && serverless remove",
     "deploy:full": "yarn build && cd messages && serverless deploy",
     "deploy:full:prod": "yarn release && cd messages && serverless deploy --stage prod",
-    "deploy": "yarn deploy:full function -f handleMessage",
+    "deploy": "yarn deploy:full function -f handleMessage && yarn deploy:full function -f processMessage",
     "test": "node -r babel-register test/index.js"
   },
   "dependencies": {
