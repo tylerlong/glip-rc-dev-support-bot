@@ -28,7 +28,7 @@ export const handleMessage = (event, context, callback) => {
     InvocationType: 'Event', // so `lambda.invoke` is async
     Payload: JSON.stringify({ message })
   }, (error, data) => {
-    if (error != null) {
+    if (error !== null) {
       console.log(error, data)
     }
   })
@@ -47,10 +47,10 @@ export const processMessage = (event, context, callback) => {
       console.log(error, data)
       return
     }
+    console.log(JSON.stringify(data, null, 2))
     if (data.message === null && data.dialogState === 'ReadyForFulfillment') {
       data.message = 'OK'
     }
-    console.log(data.message)
     rc.post('/restapi/v1.0/glip/posts', {
       groupId: message.groupId,
       text: data.message,
