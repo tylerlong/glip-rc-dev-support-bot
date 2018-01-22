@@ -15,7 +15,7 @@ provider:
     - Effect: "Allow"
       Action:
         - "lambda:*"
-      Resource: "arn:aws:lambda:${self:provider.region}:000469308104:function:glip-rc-dev-support-bot-messages-dev-processMessage"
+      Resource: "arn:aws:lambda:${self:provider.region}:000469308104:function:${self:service}-${self:provider.stage}-processMessage"
 package:
   exclude:
     - '*.js'
