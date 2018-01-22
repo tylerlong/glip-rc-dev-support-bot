@@ -2,13 +2,18 @@ service:
   name: glip-rc-dev-support-bot-messages
 plugins:
   - serverless-pseudo-parameters
+  - serverless-dotenv-plugin
+custom:
+  dotenv:
+    path: ./.env
 provider:
   name: aws
   runtime: nodejs6.10
-  region: us-east-1
+  stage: ${env:STAGE}
+  region: ${env:REGION}
   memorySize: 128
   timeout: 16
-  environment: ${file(./env.yml):${self:provider.stage}}
+  # environment: ${file(./env.yml):${self:provider.stage}}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
