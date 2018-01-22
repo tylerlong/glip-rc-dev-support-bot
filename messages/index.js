@@ -24,7 +24,7 @@ export const handleMessage = (event, context, callback) => {
     return
   }
   lambda.invoke({
-    FunctionName: 'glip-rc-dev-support-bot-messages-dev-processMessage',
+    FunctionName: `${process.env.SERVICE_NAME}-${process.env.STAGE}-processMessage`,
     InvocationType: 'Event', // so `lambda.invoke` is async
     Payload: JSON.stringify({ message })
   }, (error, data) => {
