@@ -3825,6 +3825,13 @@ semver@~5.0.1:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.0.3.tgz#77466de589cd5d3c95f138aa78bc569a3cb5d27a"
 
+serverless-pseudo-parameters@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/serverless-pseudo-parameters/-/serverless-pseudo-parameters-1.1.6.tgz#9449951c9c14f68cc294d3dd0c239f848ffded7b"
+  dependencies:
+    chalk "^1.1.1"
+    lodash "^4.13.1"
+
 serverless@^1.25.0:
   version "1.25.0"
   resolved "https://registry.yarnpkg.com/serverless/-/serverless-1.25.0.tgz#23922d6514fcd9217d2740a52ba17c696734fb23"
