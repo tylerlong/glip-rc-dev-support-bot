@@ -6,8 +6,8 @@ const token = JSON.parse(process.env.GLIP_API_TOKEN)
 const rc = new RingCentral('', '', process.env.GLIP_API_SERVER)
 rc.token(token)
 
-const lex = new Lex({ region: 'us-east-1' })
-const lambda = new Lambda({ region: 'us-east-1' })
+const lex = new Lex({ region: process.env.REGION })
+const lambda = new Lambda({ region: process.env.REGION })
 
 export const handleMessage = (event, context, callback) => {
   if (event.headers['Verification-Token'] !== process.env.GLIP_VERIFICATION_TOKEN) {
