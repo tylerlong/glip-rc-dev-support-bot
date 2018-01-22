@@ -11,11 +11,11 @@ provider:
     - Effect: "Allow"
       Action:
         - "lex:*"
-      Resource: "arn:aws:lex:us-east-1:000469308104:bot:OrderFlowers:order_rose"
+      Resource: "arn:aws:lex:${self:provider.region}:000469308104:bot:OrderFlowers:order_rose"
     - Effect: "Allow"
       Action:
         - "lambda:*"
-      Resource: "arn:aws:lambda:us-east-1:000469308104:function:glip-rc-dev-support-bot-messages-dev-processMessage"
+      Resource: "arn:aws:lambda:${self:provider.region}:000469308104:function:glip-rc-dev-support-bot-messages-dev-processMessage"
 package:
   exclude:
     - '*.js'
